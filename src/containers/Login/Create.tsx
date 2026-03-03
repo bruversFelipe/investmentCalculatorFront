@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSetAtom } from "jotai";
+import { setTokenAtom } from "@/store/authAtom";
 import { createAccount } from "@/services/auth";
 import axios from "axios";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
-import { setStorage } from "@/utils/storage";
 import { CreateState } from "./types";
 
 const initialState: CreateState = {
@@ -19,6 +20,7 @@ const initialState: CreateState = {
 export default function Create() {
     const [state, setState] = useState<CreateState>(initialState);
     const navigate = useNavigate();
+    const setToken = useSetAtom(setTokenAtom);
 
     const onChange = (item: keyof CreateState, value: string) => {
         setState(prevState => ({ ...prevState, [item]: value, error: null }))
@@ -30,11 +32,9 @@ export default function Create() {
             const { email, name, password } = state;
             const response = await createAccount({ email, name, password });
 
-
-            if (response.data?.token) {
-                setStorage("auth_token", response.data.token);
+            if (response.success && response.data?.token) {
+                setToken(response.data.token);
                 navigate("/home");
-
             } else {
                 setState(prevState => ({ ...prevState, error: response.message || "Erro ao criar conta" }));
             }

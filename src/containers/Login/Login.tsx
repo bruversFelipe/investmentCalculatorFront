@@ -8,7 +8,6 @@ import { useSetAtom } from "jotai";
 import { setTokenAtom } from "@/store/authAtom";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
-import { setStorage } from "@/utils/storage";
 import { LoginState } from "./types";
 
 const initialState: LoginState = {
@@ -33,7 +32,6 @@ export default function Login() {
             const response = await auth({ email, password });
             
             if (response.success && response.data?.token) {
-                setStorage("auth_token", response.data.token);
                 setToken(response.data.token);
                 navigate("/home");
             } else {
