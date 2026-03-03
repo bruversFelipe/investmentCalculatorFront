@@ -146,3 +146,11 @@ npm run lint   # Verificar código
 - Separação clara entre containers (páginas) e components (reutilizáveis)
 - Services para lógica de API
 - Tipos TypeScript em arquivos `types.ts` separados por container
+
+
+--- 
+Prompts usados: 
+https://docs.google.com/document/d/13okrn4hGRPFF0CMOhMbyFw6X0abHXlVqJlKk33AriVo/edit?usp=sharing
+
+Front publico 
+https://investcalculatorbruvers.netlify.app/
